@@ -49,12 +49,12 @@ class CustomerApiConnector extends BaseApiConnector
      * Requests all customers from the List Dimension Type.
      *
      * @param Office $office
-     * @return array A multidimensional array in the following form:
-     *               [$customerId => ['name' => $name, 'shortName' => $shortName], ...]
+     * @param boolean $returnObjects
+     * @return array
      *
      * @throws Exception
      */
-    public function listAll(Office $office): array
+    public function listAll(Office $office, $returnObjects = false): array
     {
         // Make a request to a list of all customers
         $request_customers = new Request\Catalog\Dimension($office, "DEB");
@@ -77,10 +77,14 @@ class CustomerApiConnector extends BaseApiConnector
                 continue;
             }
 
-            $customers[$customer->textContent] = array(
-                'name' => $customer->getAttribute('name'),
-                'shortName' => $customer->getAttribute('shortname'),
-            );
+            if($returnObjects == true){
+                $customers[] = $customer;
+            } else {
+                $customers[$customer->textContent] = array(
+                    'name' => $customer->getAttribute('name'),
+                    'shortName' => $customer->getAttribute('shortname'),
+                );
+            }
         }
 
         return $customers;
