@@ -46,6 +46,7 @@ class Invoice
     private $headerText;
     private $footerText;
     private $totals;
+    private $debitCredit;
 
     private $financialCode;
     private $financialNumber;
@@ -89,6 +90,17 @@ class Invoice
     public function getTotals(): InvoiceTotals
     {
         return $this->totals;
+    }
+
+    public function setDebitCredit($debitCredit)
+    {
+        $this->debitCredit = $debitCredit;
+        return $this;
+    }
+
+    public function getDebitCredit()
+    {
+        return $this->debitCredit;
     }
 
     public function getInvoiceType()
