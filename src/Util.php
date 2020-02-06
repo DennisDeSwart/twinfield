@@ -63,7 +63,7 @@ final class Util
         if ($dateString === '') {
             return null;
         }
-      
+
         $date = \DateTimeImmutable::createFromFormat("YmdHis", $dateString);
 
         if (false === $date) {
