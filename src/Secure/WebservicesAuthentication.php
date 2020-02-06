@@ -2,6 +2,7 @@
 
 namespace PhpTwinfield\Secure;
 
+use PhpTwinfield\Enums\Services;
 use PhpTwinfield\Exception;
 use PhpTwinfield\Services\BaseService;
 
@@ -35,7 +36,7 @@ class WebservicesAuthentication extends AuthenticatedConnection
      * @access private
      * @var string
      */
-    private $cluster = 'https://c3.twinfield.com';
+    private $cluster = 'https://accounting.twinfield.com';
 
     public function __construct(string $username, string $password, string $organization)
     {
@@ -120,5 +121,19 @@ class WebservicesAuthentication extends AuthenticatedConnection
     protected function getCluster(): string
     {
         return $this->cluster;
+    }
+
+    public function resetClient(Services $service): void
+    {
+        $this->sessionID = NULL;
+
+        parent::resetClient($service);
+    }
+
+    protected function resetAllClients(): void
+    {
+        $this->sessionID = NULL;
+
+        parent::resetAllClients();
     }
 }
